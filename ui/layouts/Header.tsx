@@ -3,10 +3,10 @@
 import { FlagIcon, FlagIconCode } from "react-flag-kit";
 import { Avatar, Dropdown } from "flowbite-react";
 import { useState } from "react";
-import { userCountries } from "../../../utiles/constants";
+import { userCountries } from "@/utils/constants";
 
 const Header = () => {
-  const [selectedCountry, setSelectedCountry] = useState({
+  const [ selectedCountry, setSelectedCountry ] = useState({
     countryName: "United State", 
     code: "US" as FlagIconCode
   }); 
@@ -22,7 +22,7 @@ const Header = () => {
                   className="mr-2"
                   code={selectedCountry.code}
                 />
-                { selectedCountry.countryName }
+                {selectedCountry.countryName}
               </> 
             } 
             inline

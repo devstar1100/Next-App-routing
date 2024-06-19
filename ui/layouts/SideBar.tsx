@@ -1,36 +1,29 @@
 "use client";
 
-import type { SidebarProps } from "flowbite-react";
 import { Drawer } from "flowbite-react";
 import { Menu } from "lucide-react";
 import { useState } from "react";
-import MainSideBar from "../components/mainSideBar";
+import MainSideBar from "../components/MainSideBar";
 
-const SideBar = (props: SidebarProps) => {
-  const [sideBarHandler, setSidBarHandler] = useState(false);
+const SideBar = () => {
+  const [ sideBarHandler, setSidBarHandler ] = useState(false);
   
   return (
     <>
       <div className="min-[1024px]:hidden max-lg:flex">
-        {!sideBarHandler && 
-          (
-            <>
-              <div className="fixed left-5 top-7 z-50">
-                <Menu
-                  className="cursor-pointer"
-                  onClick={() => setSidBarHandler(true)}
-                />
-              </div>
-            </>
-          )
-        }
+        {!sideBarHandler && (
+          <>
+            <div className="fixed left-5 top-7 z-50">
+              <Menu
+                className="cursor-pointer"
+                onClick={() => setSidBarHandler(true)}
+              />
+            </div>
+          </>
+        )}
         <Drawer
           open={sideBarHandler} 
-          onClose={
-            () => {
-              setSidBarHandler(false)
-            }
-          }
+          onClose={() => setSidBarHandler(false)}
           theme={{
             root:  {
               base: "fixed z-40 bg-white p-2 border-0 transition-transform dark:bg-gray-800",

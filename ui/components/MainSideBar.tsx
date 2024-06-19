@@ -3,8 +3,8 @@
 import type { SidebarProps } from "flowbite-react";
 import { Sidebar } from "flowbite-react";
 import { Plus } from "lucide-react";
-import { sideList } from "../../../utiles/constants";
-import { CustomButton } from "../elements/Button";
+import { sideList } from "@/utils/constants";
+import { Button } from "../elements/Button";
 
 const MainSideBar = (props: SidebarProps) => {
 
@@ -104,13 +104,14 @@ const MainSideBar = (props: SidebarProps) => {
         }}
       > 
         <Sidebar.Logo 
+          className="mt-4"
           href="#" 
           img="" 
           imgAlt="logo"
         >
           <b>Accessi</b>Bit
         </Sidebar.Logo>
-        <Sidebar.Items className="mt-16">
+        <Sidebar.Items className="mt-12">
           <Sidebar.ItemGroup>
             {sideList.map((sideOne, index) => {
               return (
@@ -130,7 +131,7 @@ const MainSideBar = (props: SidebarProps) => {
             })}
           </Sidebar.ItemGroup>
         </Sidebar.Items>
-        <CustomButton
+        <Button
           style="bg-blue-800 mt-10"
           icon={<Plus/>}
           title="Aggiungi sito"

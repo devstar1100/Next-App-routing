@@ -1,14 +1,13 @@
 "use client";
 
-import Header from '@/app/ui/layouts/header';
-import SideBar from '../ui/layouts/sideBar';
-import CustomBreadCrumb from '../ui/components/BreadCrumb';
 import { usePathname } from 'next/navigation';
+import BreadCrumb from '@/ui/components/BreadCrumb';
+import SideBar from '@/ui/layouts/SideBar';
+import Header from '@/ui/layouts/Header';
  
 export default function Layout({ children }: { children: React.ReactNode }) {
   const params = usePathname();
-  const baseUrl = "/main/";
-  const url = params.substring(baseUrl.length);
+  const paramsArray = params.split("/");
 
   return (
     <>
@@ -17,8 +16,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="w-full">
           <Header />
           <div className="flex items-center p-10">
-            <CustomBreadCrumb
-              param={url}
+            <BreadCrumb
+              paramsArray={paramsArray}
               main=""
             />
           </div>
