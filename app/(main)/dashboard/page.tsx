@@ -156,33 +156,37 @@ const Page = () => {
           <div className="max-sm:flex justify-center text-blue-800 font-bold">sito.com</div>
           <div className="max-sm:flex justify-center">Pagine del sito: {myTableData.length}</div>
         </div>
-        <div className="flex justify-center max-sm:pt-5">
-          <TextInput
-            className="max-xl:hidden"
-            type="text"
-            icon={Search}
-            placeholder="Cerca pagina"
-            required
-            value={searchKey.trim()}
-            onChange={(e) => setSearchKey(e.target.value)}
-          />
-          <Button 
-            style="bg-white text-blue-600 border-blue-600"
-            icon={<Plus size={15} />}
-            title="Aggiungi pagina"
-            onClick={() => setAddPageModal(true)}
-          />
-          <Button 
-            style="bg-white text-blue-600 border-blue-600"
-            icon={<RefreshCcw size={15} />}
-            title="Rescan sito"
-            onClick={() => {console.log("Clicked!")}}
-          />
-          <Button 
-            style="max-[405px]:hidden bg-blue-600 text-white border-white"
-            title="Vedi report sito"
-            onClick={() => {console.log("Clicked!")}}
-          />
+        <div className="flex justify-center max-sm:pt-5 max-xl:flex-col-reverse">
+          <div>
+            <TextInput
+              type="text"
+              className="max-xl:pt-5"
+              icon={Search}
+              placeholder="Cerca pagina"
+              required
+              value={searchKey.trim()}
+              onChange={(e) => setSearchKey(e.target.value)}
+            />
+          </div>
+          <div className="flex justify-center">
+            <Button 
+              style="bg-white text-blue-600 border-blue-600"
+              icon={<Plus size={15} />}
+              title="Aggiungi pagina"
+              onClick={() => setAddPageModal(true)}
+            />
+            <Button 
+              style="bg-white text-blue-600 border-blue-600"
+              icon={<RefreshCcw size={15} />}
+              title="Rescan sito"
+              onClick={() => {console.log("Clicked!")}}
+            />
+            <Button 
+              style="max-[405px]:hidden bg-blue-600 text-white border-white"
+              title="Vedi report sito"
+              onClick={() => {console.log("Clicked!")}}
+            />
+          </div>
         </div>
       </div>
       <div className="overflow-auto">

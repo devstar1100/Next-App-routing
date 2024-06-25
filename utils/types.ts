@@ -8,9 +8,10 @@ export interface TableRow {
 }
 
 export interface ButtonType {
-  title?: string;
+  disabled?: boolean;
   icon?: any;
   style: string;
-  disabled?: boolean;
+  title?: string;
+  titleHiddenable?: boolean,
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }

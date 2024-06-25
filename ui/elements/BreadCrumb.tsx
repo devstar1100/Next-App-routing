@@ -5,7 +5,6 @@ import { sideList } from "@/utils/constants";
 
 interface BreadCrumbProps {
   paramsArray: string[],
-  main?: string;
 }
 
 const findIconByHref = (href: string) => {
@@ -13,7 +12,7 @@ const findIconByHref = (href: string) => {
   return item ? item.icon : null;
 }
 
-const CustomBreadCrumb: React.FC<BreadCrumbProps> = ({ paramsArray }) => {
+const BreadCrumb: React.FC<BreadCrumbProps> = ({ paramsArray }) => {
   return (
     <Breadcrumb aria-label="Default breadcrumb example">
       {paramsArray.map((param, index) => {
@@ -22,7 +21,12 @@ const CustomBreadCrumb: React.FC<BreadCrumbProps> = ({ paramsArray }) => {
         
         return (
           param !== "" ?
-          <Breadcrumb.Item key={index} href={href} icon={Icon ? Icon : undefined}>
+          <Breadcrumb.Item 
+            key={index}
+            className="capitalize"
+            href={href} 
+            icon={Icon ? Icon : undefined}
+          >
             {param}
           </Breadcrumb.Item> : null
         )
@@ -31,4 +35,4 @@ const CustomBreadCrumb: React.FC<BreadCrumbProps> = ({ paramsArray }) => {
   );
 }
 
-export default CustomBreadCrumb;
+export default BreadCrumb;

@@ -1,8 +1,8 @@
 "use client";
 
 import { usePathname } from 'next/navigation';
-import BreadCrumb from '@/ui/components/BreadCrumb';
-import SideBar from '@/ui/layouts/SideBar';
+import BreadCrumb from '@/ui/elements/BreadCrumb';
+import SideBar from '@/ui/layouts/SideBarMenu';
 import Header from '@/ui/layouts/Header';
  
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -18,7 +18,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center p-10">
             <BreadCrumb
               paramsArray={paramsArray}
-              main=""
             />
           </div>
           {children}
