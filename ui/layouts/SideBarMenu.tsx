@@ -3,9 +3,9 @@
 import { Drawer } from "flowbite-react";
 import { Menu } from "lucide-react";
 import { useState } from "react";
-import MainSideBar from "../components/MainSideBar";
+import SideBar from "../components/SideBar";
 
-const SideBar = () => {
+const SideBarMenu = () => {
   const [ sideBarHandler, setSidBarHandler ] = useState(false);
   
   return (
@@ -36,14 +36,22 @@ const SideBar = () => {
             },
           }}
         >
-          <MainSideBar />
+          <div className="flex px-2 justify-end">
+            <div 
+              className="cursor-pointer"
+              onClick={() => setSidBarHandler(false)}
+            >
+              &times;
+            </div>
+          </div>
+          <SideBar />
         </Drawer>
       </div>
       <div className="flex max-lg:hidden border-r">
-        <MainSideBar />
+        <SideBar />
       </div>
     </>  
   );
 }
 
-export default SideBar
+export default SideBarMenu

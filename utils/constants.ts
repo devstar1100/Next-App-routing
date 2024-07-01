@@ -41,6 +41,19 @@ export const tableData = [
   },
 ]
 
+export const urlData = [
+  {
+    id: 1,
+    siteurl: "dental.tempmee.com",
+    license: "Obtain a license"
+  },  
+  {
+    id: 2,
+    siteurl: "www.transizionedigitable.com",
+    license: "Obtain a license"
+  },
+]
+
 export const sideList: { icon: any; content: string; href: string }[] = [
   {
     icon: Home,
@@ -49,17 +62,17 @@ export const sideList: { icon: any; content: string; href: string }[] = [
   },
   {
     icon: FileCode2,
-    content: "Script del Widget",
+    content: "Widget Script",
     href: "/script"
   },
   {
     icon: Receipt,
-    content: "Fatture & Pagamenti",
+    content: "Bills and Payments",
     href: "/payment"
   },
   {
     icon: Settings,
-    content: "Impostazioni",
+    content: "Settings",
     href: "/settings"
   },
   {
@@ -68,3 +81,4 @@ export const sideList: { icon: any; content: string; href: string }[] = [
     href: "/logout"
   },
 ] 
+

@@ -1,9 +1,9 @@
 const Page = () => {
   return (
     <>
-    <div>
-      Welcome to Logout!
-    </div>
+      <div>
+        You have just logout
+      </div>
     </>
   )
 }

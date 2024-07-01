@@ -5,10 +5,11 @@ import { Button as FlowbiteButton } from "flowbite-react";
 import type { ButtonType } from "@/utils/types"
 
 export const Button: React.FC<ButtonType> = ({
-  style,
-  title,
-  icon,
   disabled = false,
+  icon,
+  title,
+  titleHiddenable = true,
+  style,
   onClick
 }) => {
   return (
@@ -24,7 +25,7 @@ export const Button: React.FC<ButtonType> = ({
             {title &&
               <div 
                 className={
-                  icon ? 
+                  (titleHiddenable && icon) ? 
                   "mx-2 max-md:hidden" : 
                   "mx-2"
                 }
