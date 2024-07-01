@@ -44,7 +44,7 @@ const SideBar = (props: SidebarProps) => {
         <Button
           style="bg-blue-800 mt-10"
           icon={<Plus/>}
-          title="Aggiungi sito"
+          title="Add site"
           titleHiddenable={false}
           onClick={() => {console.log("Clicked!")}}
         />

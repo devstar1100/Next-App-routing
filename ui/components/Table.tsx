@@ -1,8 +1,8 @@
 "use client";
 
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { Checkbox, Table } from "flowbite-react";
+import { Table } from "flowbite-react";
 import React, { useEffect, useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface TableProps {
   data: Record<string, any>[];
@@ -11,19 +11,25 @@ interface TableProps {
     id: string;
     label: any;
     sortable: boolean;
-    style: string;
-    content?: any;
+    th: {
+      style: string;
+      content?: any;
+    };
+    tb: {
+      style: string;
+      content?: any;
+    };
   }[];
-  searchKey: string;
+  searchKey?: string;
 }
 
 export const DataTable: React.FC<TableProps> = ({
   columns, 
   data,
   defaultSortBy,
-  searchKey,
+  searchKey = '',
 }) => {
-  const [sortConfig, setSortConfig] = useState<{
+  const [ sortConfig, setSortConfig ] = useState<{
     key: string;
     direction: 'ascending' | 'descending';
   }>({
@@ -31,9 +37,9 @@ export const DataTable: React.FC<TableProps> = ({
     direction: 'ascending'
   });
   
-  const [sortedData, setSortedData] = useState<Record<string, any>[]>([]);
-  const [selectedRows, setSelectedRows] = useState<number[]>([]);
-  const [selectAll, setSelectAll] = useState(false);
+  const [ sortedData, setSortedData ] = useState<Record<string, any>[]>([]);
+  const [ selectedRows, setSelectedRows ] = useState<number[]>([]);
+  const [ selectAll, setSelectAll ] = useState(false);
   
   // Sortby Checker
   const handleSort = (sortKey: string) => {
@@ -66,27 +72,27 @@ export const DataTable: React.FC<TableProps> = ({
   });
 
   //  Checkbox selector
-  const handleSelectAll = () => {
-    if (selectAll) {
-      setSelectedRows([]);
-    } else {
-      setSelectedRows(filteredData.map(row => row.id));
-    }
-    setSelectAll(!selectAll);
-  };
+  // const handleSelectAll = () => {
+  //   if (selectAll) {
+  //     setSelectedRows([]);
+  //   } else {
+  //     setSelectedRows(filteredData.map(row => row.id));
+  //   }
+  //   setSelectAll(!selectAll);
+  // };
 
-  const handleSelectRow = (id: number) => {
-    if (selectedRows.includes(id)) {
-      setSelectedRows(selectedRows.filter(rowId => rowId !== id));
-    } else {
-      setSelectedRows([...selectedRows, id]);
-    }
-  };
+  // const handleSelectRow = (id: number) => {
+  //   if (selectedRows.includes(id)) {
+  //     setSelectedRows(selectedRows.filter(rowId => rowId !== id));
+  //   } else {
+  //     setSelectedRows([...selectedRows, id]);
+  //   }
+  // };
+  // End Checkbox selector
 
   useEffect(() => {
     setSelectAll(filteredData.length > 0 && selectedRows.length === filteredData.length);
   }, [selectedRows, filteredData]);
-  // End Checkbox selector
   
   return (
     <div className="min-w-[700px]">
@@ -116,25 +122,18 @@ export const DataTable: React.FC<TableProps> = ({
                     () => console.log("Unabled")
                   }
                 >
-                  <div className="flex items-center cursor-pointer">
-                    <div className="flex justify-center items-center">
-                      {col.id === "check" ? (
-                        <Checkbox
-                          className="cursor-pointer"
-                          checked={selectAll}
-                          onChange={handleSelectAll}
-                        />
-                      ) : (
-                        <>
-                          {col.label}
-                          {col.sortable && sortConfig.key === col.id && (
-                            sortConfig.direction === 'ascending' ?
-                              <ChevronDown className="ml-2" /> :
-                              <ChevronUp className="ml-2" />
-                          )}
-                        </>
-                      )}
-                    </div>
+                  <div className={col.th.style}>
+                    {
+                      <>
+                        <p className="select-none">{col.label}</p>
+                        {col.th.content && col.th.content(col)}
+                        {col.sortable && sortConfig.key === col.id && (
+                          sortConfig.direction === 'ascending' ?
+                            <ChevronDown className="ml-2" /> :
+                            <ChevronUp className="ml-2" />
+                        )}
+                      </>
+                    }
                   </div>
                 </Table.HeadCell>
               )
@@ -158,17 +157,9 @@ export const DataTable: React.FC<TableProps> = ({
                   {columns.map((col, colIndex) => (
                     <Table.Cell
                       key={colIndex}
-                      className={col.style}
+                      className={col.tb.style}
                     >
-                      {col.id === "check" ? (
-                        <Checkbox
-                          className="cursor-pointer"
-                          checked={selectedRows.includes(row.id)}
-                          onChange={() => handleSelectRow(row.id)}
-                        />
-                      ) : (
-                        col.content ? col.content(row) : row[col.id] 
-                      )}
+                      {col.tb.content ? col.tb.content(row, col) : row[col.id]}
                     </Table.Cell>
                   ))}
                 </Table.Row>

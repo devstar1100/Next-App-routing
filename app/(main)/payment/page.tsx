@@ -1,9 +1,9 @@
 const Page = () => {
   return (
     <>
-    <div>
-      Welcome to Payment!
-    </div>
+      <div>
+        Welcome to Payment!
+      </div>
     </>
   )
 }

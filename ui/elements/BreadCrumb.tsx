@@ -4,7 +4,11 @@ import { Breadcrumb } from "flowbite-react";
 import { sideList } from "@/utils/constants";
 
 interface BreadCrumbProps {
-  paramsArray: string[],
+  paramsArray: {
+    root: string,
+    icon: React.FC,
+    url?: string[]
+  },
 }
 
 const findIconByHref = (href: string) => {
@@ -15,17 +19,20 @@ const findIconByHref = (href: string) => {
 const BreadCrumb: React.FC<BreadCrumbProps> = ({ paramsArray }) => {
   return (
     <Breadcrumb aria-label="Default breadcrumb example">
-      {paramsArray.map((param, index) => {
-        const href = `/${param}`;
-        const Icon = findIconByHref(href);
-        
+      {  }
+      <Breadcrumb.Item 
+        className="capitalize"
+        icon={paramsArray.icon}
+        href={paramsArray.root} 
+      >
+        { !paramsArray.url && paramsArray.root}
+      </Breadcrumb.Item>
+      { paramsArray.url && paramsArray.url.map((param, index) => {
         return (
           param !== "" ?
           <Breadcrumb.Item 
             key={index}
-            className="capitalize"
-            href={href} 
-            icon={Icon ? Icon : undefined}
+            href={param} 
           >
             {param}
           </Breadcrumb.Item> : null
