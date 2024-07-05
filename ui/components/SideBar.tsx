@@ -1,10 +1,10 @@
 "use client";
 
+import { Plus } from "lucide-react";
+import { Button } from "../elements/Button";
+import { sideList } from "@/utils/constants";
 import type { SidebarProps } from "flowbite-react";
 import { Sidebar as FlowbiteSidebar } from "flowbite-react";
-import { Plus } from "lucide-react";
-import { sideList } from "@/utils/constants";
-import { Button } from "../elements/Button";
 
 const SideBar = (props: SidebarProps) => {
   return (

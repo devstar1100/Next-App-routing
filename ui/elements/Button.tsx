@@ -1,15 +1,15 @@
 'use client';
 
 import React from "react";
-import { Button as FlowbiteButton } from "flowbite-react";
 import type { ButtonType } from "@/utils/types"
+import { Button as FlowbiteButton } from "flowbite-react";
 
 export const Button: React.FC<ButtonType> = ({
   disabled = false,
   icon,
+  style,
   title,
   titleHiddenable = true,
-  style,
   onClick
 }) => {
   return (

@@ -2,23 +2,39 @@
 
 import Link from "next/link";
 import { Panel } from "@/ui/layouts/Panel";
+import { useParams } from "next/navigation";
 import { Button } from "@/ui/elements/Button";
-import { tableData } from "@/utils/constants";
 import 'react-toastify/dist/ReactToastify.css';
 import { DataTable } from "@/ui/components/Table";
+import type { tableData } from "@/utils/constants";
 import { ToastContainer, toast } from 'react-toastify';
 import { ChangeEvent, useEffect, useState } from "react";
-import { Badge, Checkbox, Modal, TextInput } from "flowbite-react";
 import { Plus, RefreshCcw, Search, Trash2 } from "lucide-react";
+import { Badge, Checkbox, Modal, TextInput } from "flowbite-react";
 
 const Page = () => {
+  const router = useParams();
   const [ selectAll, setSelectAll ] = useState(false);
+  const [ searchKey, setSearchKey ] = useState<string>("");
   const [ selectedRows, setSelectedRows ] = useState<number[]>([]);
-  const [ filteredTableData, setFilteredTableData ] = useState(tableData);
   const [ showAddPageModal, setShowAddPageModal ] = useState<boolean>(false);
   const [ handleAddPageInput, setHandleAddPageInput ] = useState<string>("");
-  const [ searchKey, setSearchKey ] = useState<string>("");
-  // const exp = "He had a meal with me for my birthday. And I don't have any picture about him."
+  const [ filteredTableData, setFilteredTableData ] = useState<typeof tableData>([]);
+
+  useEffect(() => {
+    console.log(router["site-id"])
+    const getUrlData = async () => {
+      try {
+        const response = await fetch('/api/sitedata/id');
+        const data = await response.json();
+        setFilteredTableData(data)
+      } catch (error) {
+        console.error('Error fetching fruits:', error);
+      }
+    }
+
+    getUrlData()
+  }, [])
 
   const buttons = [
     {
@@ -242,7 +258,12 @@ const Page = () => {
 
   return (
     <>
-      <Panel>
+      <Panel
+        specificPath={{
+          currentTitle: router["site-id"].toString(),
+          specificTitle: "sito.com"
+        }}
+      >
         <div className="pb-12 min-[640px]:flex items-center justify-between">
           <div>
             <div className="max-sm:flex justify-center text-blue-800 font-bold">sito.com</div>
@@ -254,8 +275,8 @@ const Page = () => {
                 type="text"
                 className="max-xl:pt-5"
                 icon={Search}
-                value={searchKey.trim()}
                 placeholder="Cerca pagina"
+                value={searchKey.trim()}
                 onChange={(e) => setSearchKey(e.target.value)}
                 required
               />

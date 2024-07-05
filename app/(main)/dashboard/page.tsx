@@ -2,27 +2,19 @@
 
 import { Badge } from "flowbite-react";
 import { Panel } from "@/ui/layouts/Panel";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/ui/elements/Button";
 import 'react-toastify/dist/ReactToastify.css';
 import { DataTable } from "@/ui/components/Table";
-import { useRouter } from "next/navigation";
 import { AddPageModal } from "@/ui/components/AddPageModal";
 import { urlData as urlDataProps } from "@/utils/constants";
-import { BadgeInfo, Eye, Home, Send, Trash2 } from "lucide-react";
-import { PageNameContext } from "@/ui/components/PageNameContext";
+import { BadgeInfo, Eye, Send, Trash2 } from "lucide-react";
 
 const Page = () => {
   const router = useRouter();
-  const [ filteredUrlData, setFilteredUrlData ] = useState<typeof urlDataProps>([]);
   const [ showPageModal, setShowPageModal ] = useState<boolean>(false);
-  const context = useContext(PageNameContext);
-
-  if (context === undefined) {
-    throw new Error('Panel must be used within a MyProvider');
-  }
-
-  const { setValue } = context;
+  const [ filteredUrlData, setFilteredUrlData ] = useState<typeof urlDataProps>([]);
 
   useEffect(() => {
     const getUrlData = async () => {
@@ -52,7 +44,7 @@ const Page = () => {
       icon: Eye,
       style: "bg-white text-blue-600 border-blue-600",
       onClick: (row: Record<string, any>) => {
-        setValue(row.siteurl)
+        console.log(row.id)
         router.push('/dashboard/'+row.id);
       }
     }
@@ -149,7 +141,6 @@ const Page = () => {
             <Button
               style="bg-white text-blue-600 border-blue-600"
               title="Install widget"
-              onClick={() => console.log("row: ", row)}
             />
           </div>
         )

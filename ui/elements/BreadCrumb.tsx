@@ -1,39 +1,42 @@
 "use client";
 
-import { Breadcrumb } from "flowbite-react";
-import { useContext } from "react";
+import Link from "next/link";
 
 interface BreadCrumbProps {
-  rootsArray?: {    
-    content: string,
+  rootsArray: {    
     href: string,
-  }[]
-  mainRoot: any
+    title?: string,
+    icon?: any
+  }[],
+  dividerIcon?: React.ReactNode
 }
-useContext
 
-const BreadCrumb: React.FC<BreadCrumbProps> = ({ mainRoot, rootsArray }) => {
+const BreadCrumb: React.FC<BreadCrumbProps> = ({ 
+  rootsArray, 
+  dividerIcon = "/" 
+}) => {
   return (
-    <Breadcrumb aria-label="Default breadcrumb example">
-      {  }
-      <Breadcrumb.Item 
-        className="capitalize"
-        icon={mainRoot.icon}
-        href={mainRoot.href} 
-      >
-        { rootsArray?.length === 0 && mainRoot.content}
-      </Breadcrumb.Item>
-      { rootsArray && rootsArray.map((root, index) => {
+    <div className="flex items-center text-gray-700">
+      { rootsArray && rootsArray.map((root, index: number) => {
         return (
-          <Breadcrumb.Item 
+          <div
             key={index}
-            href={root.href}
           >
-            {root.content}
-          </Breadcrumb.Item>
+            <Link
+              className="flex items-center"
+              href={root.href}
+            >
+              {index !== 0 && <p className="mx-2">{dividerIcon}</p>}
+              {root.icon && <root.icon />}
+              {rootsArray.length > 1 ? (
+                 index !== 0 && <p>{root.title}</p>
+                ) : <p className="mx-2">{root.title}</p>
+              }
+            </Link>
+          </div>
         )
       })}
-    </Breadcrumb>
+    </div>
   );
 }
 

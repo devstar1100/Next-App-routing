@@ -1,9 +1,9 @@
 "use client";
 
-import { FlagIcon, FlagIconCode } from "react-flag-kit";
-import { Avatar, Dropdown } from "flowbite-react";
 import { useState } from "react";
+import { Avatar, Dropdown } from "flowbite-react";
 import { userCountries } from "@/utils/constants";
+import { FlagIcon, FlagIconCode } from "react-flag-kit";
 
 const Header = () => {
   const [ selectedCountry, setSelectedCountry ] = useState({

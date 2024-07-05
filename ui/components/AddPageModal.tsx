@@ -1,8 +1,8 @@
 'use client'
 
-import { Modal, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Button } from "@/ui/elements/Button";
+import { Modal, TextInput } from "flowbite-react";
 
 interface AddPageModalProps {
   showPageModal: boolean;

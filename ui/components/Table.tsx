@@ -38,8 +38,6 @@ export const DataTable: React.FC<TableProps> = ({
   });
   
   const [ sortedData, setSortedData ] = useState<Record<string, any>[]>([]);
-  const [ selectedRows, setSelectedRows ] = useState<number[]>([]);
-  const [ selectAll, setSelectAll ] = useState(false);
   
   // Sortby Checker
   const handleSort = (sortKey: string) => {
@@ -71,29 +69,6 @@ export const DataTable: React.FC<TableProps> = ({
     );
   });
 
-  //  Checkbox selector
-  // const handleSelectAll = () => {
-  //   if (selectAll) {
-  //     setSelectedRows([]);
-  //   } else {
-  //     setSelectedRows(filteredData.map(row => row.id));
-  //   }
-  //   setSelectAll(!selectAll);
-  // };
-
-  // const handleSelectRow = (id: number) => {
-  //   if (selectedRows.includes(id)) {
-  //     setSelectedRows(selectedRows.filter(rowId => rowId !== id));
-  //   } else {
-  //     setSelectedRows([...selectedRows, id]);
-  //   }
-  // };
-  // End Checkbox selector
-
-  useEffect(() => {
-    setSelectAll(filteredData.length > 0 && selectedRows.length === filteredData.length);
-  }, [selectedRows, filteredData]);
-  
   return (
     <div className="min-w-[700px]">
       <Table 
