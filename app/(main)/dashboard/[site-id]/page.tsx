@@ -9,7 +9,7 @@ import { DataTable } from "@/ui/components/Table";
 import { ToastContainer, toast } from 'react-toastify';
 import { ChangeEvent, useEffect, useState } from "react";
 import { Badge, Checkbox, Modal, TextInput } from "flowbite-react";
-import { Home, Plus, RefreshCcw, Search, Trash2 } from "lucide-react";
+import { Plus, RefreshCcw, Search, Trash2 } from "lucide-react";
 
 const Page = () => {
   const [ selectAll, setSelectAll ] = useState(false);
@@ -18,6 +18,8 @@ const Page = () => {
   const [ showAddPageModal, setShowAddPageModal ] = useState<boolean>(false);
   const [ handleAddPageInput, setHandleAddPageInput ] = useState<string>("");
   const [ searchKey, setSearchKey ] = useState<string>("");
+  // const exp = "He had a meal with me for my birthday. And I don't have any picture about him."
+
   const buttons = [
     {
       title: "Rescan pays",
@@ -240,13 +242,7 @@ const Page = () => {
 
   return (
     <>
-      <Panel 
-        href={{
-          root: "dashboard",
-          icon: Home,
-          url: ["dental"]
-        }}
-      >
+      <Panel>
         <div className="pb-12 min-[640px]:flex items-center justify-between">
           <div>
             <div className="max-sm:flex justify-center text-blue-800 font-bold">sito.com</div>

@@ -1,41 +1,36 @@
 "use client";
 
 import { Breadcrumb } from "flowbite-react";
-import { sideList } from "@/utils/constants";
+import { useContext } from "react";
 
 interface BreadCrumbProps {
-  paramsArray: {
-    root: string,
-    icon: React.FC,
-    url?: string[]
-  },
+  rootsArray?: {    
+    content: string,
+    href: string,
+  }[]
+  mainRoot: any
 }
+useContext
 
-const findIconByHref = (href: string) => {
-  const item = sideList.find(item => item.href === href);
-  return item ? item.icon : null;
-}
-
-const BreadCrumb: React.FC<BreadCrumbProps> = ({ paramsArray }) => {
+const BreadCrumb: React.FC<BreadCrumbProps> = ({ mainRoot, rootsArray }) => {
   return (
     <Breadcrumb aria-label="Default breadcrumb example">
       {  }
       <Breadcrumb.Item 
         className="capitalize"
-        icon={paramsArray.icon}
-        href={paramsArray.root} 
+        icon={mainRoot.icon}
+        href={mainRoot.href} 
       >
-        { !paramsArray.url && paramsArray.root}
+        { rootsArray?.length === 0 && mainRoot.content}
       </Breadcrumb.Item>
-      { paramsArray.url && paramsArray.url.map((param, index) => {
+      { rootsArray && rootsArray.map((root, index) => {
         return (
-          param !== "" ?
           <Breadcrumb.Item 
             key={index}
-            href={param} 
+            href={root.href}
           >
-            {param}
-          </Breadcrumb.Item> : null
+            {root.content}
+          </Breadcrumb.Item>
         )
       })}
     </Breadcrumb>

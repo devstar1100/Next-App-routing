@@ -2,37 +2,39 @@
 
 import { Badge } from "flowbite-react";
 import { Panel } from "@/ui/layouts/Panel";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "@/ui/elements/Button";
 import 'react-toastify/dist/ReactToastify.css';
 import { DataTable } from "@/ui/components/Table";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { AddPageModal } from "@/ui/components/AddPageModal";
 import { urlData as urlDataProps } from "@/utils/constants";
 import { BadgeInfo, Eye, Home, Send, Trash2 } from "lucide-react";
+import { PageNameContext } from "@/ui/components/PageNameContext";
 
 const Page = () => {
   const router = useRouter();
   const [ filteredUrlData, setFilteredUrlData ] = useState<typeof urlDataProps>([]);
   const [ showPageModal, setShowPageModal ] = useState<boolean>(false);
-  const params = usePathname();
-  const paramsArray = params.split("/");
+  const context = useContext(PageNameContext);
+
+  if (context === undefined) {
+    throw new Error('Panel must be used within a MyProvider');
+  }
+
+  const { setValue } = context;
 
   useEffect(() => {
     const getUrlData = async () => {
       try {
         const response = await fetch('/api/sitedata');
         const data = await response.json();
-        console.log(data);
         setFilteredUrlData(data)
       } catch (error) {
         console.error('Error fetching fruits:', error);
       }
     }
-    const getPath = () => {
-      console.log(paramsArray)
-    }
-    getPath()
+
     getUrlData()
   }, [])
 
@@ -43,7 +45,6 @@ const Page = () => {
       style: "bg-blue-600 text-white border-whitebg-white border-blue-600",
       onClick: (row: Record<string, any>) => {
         console.log(row.id)
-        // router.push('/dashboard/'+row.id);
       }
     },
     {
@@ -51,6 +52,7 @@ const Page = () => {
       icon: Eye,
       style: "bg-white text-blue-600 border-blue-600",
       onClick: (row: Record<string, any>) => {
+        setValue(row.siteurl)
         router.push('/dashboard/'+row.id);
       }
     }
@@ -207,10 +209,6 @@ const Page = () => {
             onClick={() => setShowPageModal(true)}
           />
         }
-        href={{
-          root: "dashboard",
-          icon: Home,
-        }}
       >
         <div className="overflow-auto">
           <DataTable
