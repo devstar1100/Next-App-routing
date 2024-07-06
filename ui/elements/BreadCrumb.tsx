@@ -1,44 +1,42 @@
 "use client";
 
-import { Breadcrumb } from "flowbite-react";
-import { sideList } from "@/utils/constants";
+import Link from "next/link";
 
 interface BreadCrumbProps {
-  paramsArray: {
-    root: string,
-    icon: React.FC,
-    url?: string[]
-  },
+  rootsArray: {    
+    href: string,
+    title?: string,
+    icon?: any
+  }[],
+  dividerIcon?: React.ReactNode
 }
 
-const findIconByHref = (href: string) => {
-  const item = sideList.find(item => item.href === href);
-  return item ? item.icon : null;
-}
-
-const BreadCrumb: React.FC<BreadCrumbProps> = ({ paramsArray }) => {
+const BreadCrumb: React.FC<BreadCrumbProps> = ({ 
+  rootsArray, 
+  dividerIcon = "/" 
+}) => {
   return (
-    <Breadcrumb aria-label="Default breadcrumb example">
-      {  }
-      <Breadcrumb.Item 
-        className="capitalize"
-        icon={paramsArray.icon}
-        href={paramsArray.root} 
-      >
-        { !paramsArray.url && paramsArray.root}
-      </Breadcrumb.Item>
-      { paramsArray.url && paramsArray.url.map((param, index) => {
+    <div className="flex items-center text-gray-700">
+      { rootsArray && rootsArray.map((root, index: number) => {
         return (
-          param !== "" ?
-          <Breadcrumb.Item 
+          <div
             key={index}
-            href={param} 
           >
-            {param}
-          </Breadcrumb.Item> : null
+            <Link
+              className="flex items-center"
+              href={root.href}
+            >
+              {index !== 0 && <p className="mx-2">{dividerIcon}</p>}
+              {root.icon && <root.icon />}
+              {rootsArray.length > 1 ? (
+                 index !== 0 && <p>{root.title}</p>
+                ) : <p className="mx-2">{root.title}</p>
+              }
+            </Link>
+          </div>
         )
       })}
-    </Breadcrumb>
+    </div>
   );
 }
 

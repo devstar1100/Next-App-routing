@@ -1,8 +1,8 @@
 "use client";
 
-import { Drawer } from "flowbite-react";
-import { Menu } from "lucide-react";
 import { useState } from "react";
+import { Menu } from "lucide-react";
+import { Drawer } from "flowbite-react";
 import SideBar from "../components/SideBar";
 
 const SideBarMenu = () => {
